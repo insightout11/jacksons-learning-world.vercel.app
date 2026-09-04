@@ -1,38 +1,45 @@
-/* My Learning World service worker — minimal, update-friendly.
-   Strategy: NETWORK FIRST for everything. Nothing is served stale while
-   online, so new Vercel deploys reach the tablet on the next load.
-   The cache is only a fallback for offline launches. Saved progress lives
-   in localStorage, which this worker never touches — updates can't wipe it. */
-const MLW_CACHE = 'mlw-shell-v1';
+/* My Learning World service worker: minimal and update-friendly.
+   - Navigations: network-first so new Vercel deploys show up immediately.
+     The last working page is kept only as an offline fallback.
+   - Game files (JS/CSS/images/manifest): never cached by the worker, always fresh.
+   - Old caches from earlier builds are deleted on activate.
+   - Saved progress lives in localStorage, which this worker never touches. */
+const MLW_SHELL = "mlw-shell-v1";
 
-self.addEventListener('install', (event) => {
-  // Activate immediately so updates apply without trapping an old build.
-  self.skipWaiting();
+self.addEventListener("install", (e) => {
+  e.waitUntil(self.skipWaiting().catch(() => undefined));
 });
 
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.map((k) => (k !== MLW_CACHE ? caches.delete(k) : null)))
-    ).then(() => self.clients.claim())
+self.addEventListener("activate", (e) => {
+  e.waitUntil(
+    caches.keys()
+      .then((ks) => Promise.all(ks.filter((k) => k !== MLW_SHELL).map((k) => caches.delete(k))))
+      .then(() => self.clients.claim())
+      .catch(() => undefined)
   );
 });
 
-self.addEventListener('fetch', (event) => {
-  const req = event.request;
-  // Only handle same-origin GET requests; never interfere with YouTube, fonts, etc.
-  if (req.method !== 'GET') return;
-  let sameOrigin = true;
-  try { sameOrigin = new URL(req.url).origin === self.location.origin; } catch (e) { return; }
-  if (!sameOrigin) return;
-  event.respondWith(
-    fetch(req).then((res) => {
-      // Refresh the offline fallback copy in the background (GET 200 only).
-      if (res && res.status === 200) {
-        const copy = res.clone();
-        caches.open(MLW_CACHE).then((cache) => cache.put(req, copy)).catch(() => {});
-      }
-      return res;
-    }).catch(() => caches.match(req).then((hit) => hit || caches.match('./index.html')))
+self.addEventListener("fetch", (e) => {
+  const { request } = e;
+  if (request.method !== "GET") return;
+  let url;
+  try {
+    url = new URL(request.url);
+  } catch (err) {
+    return;
+  }
+  if (url.origin !== self.location.origin) return;
+  // Only navigations are handled: everything else goes straight to the network.
+  if (request.mode !== "navigate") return;
+  e.respondWith(
+    fetch(request)
+      .then((r) => {
+        if (r && r.ok) {
+          const cp = r.clone();
+          caches.open(MLW_SHELL).then((c) => c.put("/", cp)).catch(() => undefined);
+        }
+        return r;
+      })
+      .catch(() => caches.match("/"))
   );
 });
