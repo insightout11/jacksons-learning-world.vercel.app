@@ -68,6 +68,8 @@ function logEvent(type, data){
 function getEvents(){ try{ return JSON.parse(localStorage.getItem('mlw_events')||'[]'); }catch(e){ return []; } }
 function render(){
   const app = document.getElementById('app');
+  if(window.__mlwDiag && window.__mlwDiag.length && S){ const q = window.__mlwDiag.splice(0); q.forEach(function(e){ logEvent(e.t,{}); }); }
+  if(S && !window.__mlwStdLogged && standaloneMode()){ window.__mlwStdLogged = true; logEvent('standalone_launch',{}); }
   if(!S.onboarded){ app.innerHTML = onboardHTML(); const b=document.getElementById('ob-build'); if(b) runBuildAnim(); return; }
   if(S.mode==='parent'){ app.innerHTML = topbarMini() + parentHTML(); return; }
   let screen = '';
@@ -78,6 +80,8 @@ function render(){
   else screen = profileHTML();
   app.innerHTML = topbar() + screen + (R?'':bottomnav());
 }
+function standaloneMode(){ try{ return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true; }catch(e){ return false; } }
+function showInstallBtn(){ return !!(window.__mlwBIP && !standaloneMode()); }
 function topbar(){
   const p = S.profile;
   return `<div class="topbar">
@@ -85,9 +89,26 @@ function topbar(){
     <span class="pill xp">⭐ ${p.xp} XP · Lv ${levelOf(p.xp)}</span>
     <span class="pill coins">🪙 ${p.coins}</span>
     <span class="pill streak">🔥 ${p.streak} days</span>
+    ${showInstallBtn()?'<button class="btn green" id="install-btn" style="padding:8px 14px;font-size:14px" onclick="installApp()">📲 Install</button>':''}
     <div class="mode-switch"><button class="on">🧒 Kid</button><button onclick="gateToParent()">🔒 Grown-ups</button></div>
   </div>`;
 }
+/* Temporary diagnostic install flow (removed once device install is confirmed). */
+function installApp(){
+  logEvent('install_clicked',{});
+  const ev = window.__mlwBIP;
+  if(!ev){ toast('Install isn’t available right now.'); return; }
+  logEvent('prompt_invoked',{});
+  try{ const r = ev.prompt(); if(r && r.catch) r.catch(()=>{}); }catch(e){}
+  if(ev.userChoice && ev.userChoice.then){
+    ev.userChoice.then(function(ch){
+      logEvent('install_choice',{outcome:(ch&&ch.outcome)||'unknown'});
+      if(ch && ch.outcome === 'accepted') window.__mlwBIP = null;
+      render();
+    }).catch(function(){});
+  } else { setTimeout(function(){ render(); }, 1200); }
+}
+window.__mlwBIPShow = function(){ if(window.render && typeof S !== 'undefined' && S){ logEvent('install_shown',{}); render(); } };
 function topbarMini(){
   return `<div class="topbar" style="justify-content:flex-end">
     <span class="p-label" style="margin-right:auto;font-family:var(--parent-font)">🔒 Grown-ups area · kid mode is one tap away</span>

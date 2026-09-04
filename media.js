@@ -18,7 +18,8 @@ function parseYouTubeUrl(url){
   return {ok:false, error:'Only YouTube links are supported — no other websites.'};
 }
 function ytEmbedUrl(id, opts){
-  const o = Object.assign({rel:0, modestbranding:1, playsinline:1}, opts||{});
+  // Privacy Enhanced Mode host + no related videos + captions on + inline playback.
+  const o = Object.assign({rel:0, modestbranding:1, playsinline:1, cc_load_policy:1, cc_lang_pref:'en'}, opts||{});
   const q = Object.keys(o).map(k=>k+'='+encodeURIComponent(o[k])).join('&');
   return 'https://www.youtube-nocookie.com/embed/'+id+'?'+q;
 }

@@ -19,6 +19,22 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<script>
+/* Temporary real-device PWA diagnostic: capture install prompt as early as possible. */
+window.__mlwBIP = null;
+window.__mlwDiag = [];
+window.addEventListener('beforeinstallprompt', function (e) {
+  e.preventDefault();
+  window.__mlwBIP = e;
+  window.__mlwDiag.push({ t:'bip_received', at:Date.now() });
+  if (window.__mlwBIPShow) window.__mlwBIPShow();
+});
+window.addEventListener('appinstalled', function () {
+  window.__mlwBIP = null;
+  window.__mlwDiag.push({ t:'appinstalled', at:Date.now() });
+  if (window.render) window.render();
+});
+</script>
 </head>
 <body>
 <div id="bg-stars"></div>
