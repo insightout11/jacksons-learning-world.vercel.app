@@ -38,9 +38,9 @@ const MISSIONS = [
     {kind:'tf', q:'True or false: Lava and magma are exactly the same thing in the same place.', options:['True','False'], answer:1, why:'False! Same melted rock, different place. Underground = magma, outside = lava.', source:'video', sourceConcept:'magma vs lava', sourceProvenance:'verified-transcript', sourceExcerpt:'Verbatim: magma beneath the surface; called lava once it “reaches the air.”'},
     {kind:'sort', q:'How does a volcano mountain grow? Put it in order:', options:['Lava erupts from the crater','Lava cools into a rock layer','Layers pile up into a mountain'], answer:[0,1,2], why:'Erupt, cool, pile up — layer by layer, the mountain grows!', source:'video', sourceConcept:'mountain growth', sourceProvenance:'verified-transcript', sourceExcerpt:'Verbatim: “Soon the lava cools down and creates a layer of rock. Over time, many layers build up… to form the mountain.”'},
     {kind:'img', q:'Stromboli shoots lava like a fiery fountain. Which picture shows lava?', options:[{e:'🌊',t:'Ocean wave'},{e:'🔥',t:'Glowing red lava'},{e:'❄️',t:'Snow'},{e:'🌪️',t:'Tornado'}], answer:1, why:'Lava is bright red and very hot when it first erupts!', source:'video', sourceConcept:'lava appearance', sourceProvenance:'verified-transcript', sourceExcerpt:'Verbatim: “Lava is bright red and very hot when it first erupts out of the ground.”'},
-    {kind:'short', q:'Hawaii’s islands are volcanoes that started UNDERWATER. How did they become islands?', keywords:['lava','layers','pile','build','grow','ocean','surface','cool'], why:'Exactly! Layer after layer of oozed lava piled up for millions of years until it rose above the waves!', source:'video', sourceConcept:'Hawaii formation', sourceProvenance:'verified-transcript', sourceExcerpt:'Verbatim: “All of the islands of Hawaii are made of volcanoes that began underwater… all of the layers of lava… built up, until they reached above the surface of the ocean.”'}
+    {kind:'build', q:'Hawaii’s islands are volcanoes that started UNDERWATER. Build the sentence that explains how they became islands:', tiles:['Lava oozed out','Layers piled up','An island rose','The ocean boiled away'], answer:['Lava oozed out','Layers piled up','An island rose'], why:'Layer after layer of oozed lava piled up for millions of years until it rose above the waves!', source:'video', sourceConcept:'Hawaii formation', sourceProvenance:'verified-transcript', sourceExcerpt:'Verbatim: “All of the islands of Hawaii are made of volcanoes that began underwater… all of the layers of lava… built up, until they reached above the surface of the ocean.”'}
   ],
-  creative:{title:'Design a volcano-proof Minecraft base!', prompt:'Volcanic ash is falling near your Minecraft village. Design a base that could survive. Where would you build it? What blocks would you use?', tabs:['text','draw','build'],
+  creative:{title:'Design a volcano-proof Minecraft base!', prompt:'Volcanic ash is falling near your Minecraft village. Design a base that could survive. Where would you build it? What blocks would you use?', tabs:['draw','build'],
     scout:'Great thinking! Building higher helps protect the base from lava flows. You also chose strong blocks — much smarter than wood near heat.'},
   rabbitHoles:[
     {to:'supervolcano', why:'Some volcanoes are unimaginably larger…', bridge:'That eruption was big — but some volcanoes are a THOUSAND times bigger. No mountain at all. Just a dent the size of a city.'},
@@ -62,9 +62,9 @@ const MISSIONS = [
     {kind:'mc', q:'What is the upward push on a wing called?', options:['Thrust','Gravity','Lift','Drag'], answer:2, why:'Lift! The wing shape creates lift that holds the plane up.', source:'video', sourceConcept:'lift', sourceProvenance:'retrieved-description', sourceExcerpt:'Publisher description + tags: wings, wing, lift, air pressure, engine, thrust; “the unique shape of the wings creates lift.”'},
     {kind:'tf', q:'True or false: Engines hold the plane up; wings just steer.', options:['True','False'], answer:1, why:'False! Engines push forward (thrust). Wings make lift — that is what holds it up.', source:'video', sourceConcept:'thrust vs lift', sourceProvenance:'retrieved-description', sourceExcerpt:'Corroborated summary: thrust moves the airplane forward; wing shape creates lift.'},
     {kind:'mc', q:'What pushes a plane FORWARD?', options:['Lift','Thrust from the engines','Gravity','Wind'], answer:1, why:'Thrust! Engines move the plane forward — then the wings can make lift.', source:'video', sourceConcept:'thrust', sourceProvenance:'retrieved-description', sourceExcerpt:'Corroborated summary: “thrust from the engines moves the airplane forward.”'},
-    {kind:'short', q:'Explain lift to a friend in one or two sentences.', keywords:['air','wing','push','up','bend','lift'], why:'Perfect! Special wing shape + moving air = lift!', source:'general', sourceConcept:'explain lift', sourceProvenance:'retrieved-description', sourceExcerpt:'Child explains the video’s core idea in own words (evaluative, no new facts).'}
+    {kind:'build', q:'Explain lift to a friend — build the sentence:', tiles:['Wings push air','Air pushes back','That is lift','Engines do magic'], answer:['Wings push air','Air pushes back','That is lift'], why:'Special wing shape + moving air = lift!', source:'general', sourceConcept:'explain lift', sourceProvenance:'retrieved-description', sourceExcerpt:'Child assembles the video’s core idea from tiles (evaluative, no typing).'}
   ],
-  creative:{title:'Explain how a jet flies', prompt:'Pretend your little cousin asks: how does a giant heavy jet stay in the sky? Explain it your way — words, a drawing, or both!', tabs:['text','draw','voice'],
+  creative:{title:'Explain how a jet flies', prompt:'Pretend your little cousin asks: how does a giant heavy jet stay in the sky? Explain it your way — words, a drawing, or both!', tabs:['draw','voice'],
     scout:'Love that explanation! You nailed the key idea: wings push air down, air pushes back up. Real engineer thinking.'},
   rabbitHoles:[
     {to:'birds', why:'Jets copied THEM first…', bridge:'Engineers didn’t invent wings — they copied them. The original flying machines are feathered, and some are dinosaurs.'},
@@ -86,9 +86,9 @@ const MISSIONS = [
     {kind:'img', q:'Which bridge would hold the MOST toy cars?', options:[{e:'🟫',t:'Flat log beam'},{e:'🌈',t:'Curved arch'},{e:'🔺',t:'Triangle truss'}], answer:2, why:'The triangle truss! Triangles share weight across every side — engineers use them everywhere.', source:'video', sourceConcept:'truss strength', sourceProvenance:'verified-transcript', sourceExcerpt:'Verbatim: “A beam bridge can be just a log… All bridges can hold a certain amount of weight, but what happens if we put too much weight on a beam bridge? It collapses.”'},
     {kind:'mc', q:'In the video, what is the world’s busiest bridge an example of?', options:['How much weight real bridges carry every day','A bridge made of wood','A bridge for trains only'], answer:0, why:'The George Washington Bridge carries mountains of cars and trucks daily — strength matters!', source:'video', sourceConcept:'real bridges', sourceProvenance:'verified-transcript', sourceExcerpt:'Verbatim: “Take the world’s busiest bridge, the George Washington Bridge… For a bridge to carry that much weight, it has to be built of special material, like iron and steel.”'},
     {kind:'tf', q:'True or false: Strong materials alone are enough — shape doesn’t matter.', options:['True','False'], answer:1, why:'False! The video shows it takes MORE than tough materials — shape does half the work.', source:'video', sourceConcept:'shape vs material', sourceProvenance:'verified-transcript', sourceExcerpt:'Verbatim: “But it takes more than tough materials to make a strong bridge.”'},
-    {kind:'short', q:'You get 20 straws and tape. Describe your bridge design.', keywords:['triangle','truss','arch','support','beam','strong'], why:'An engineer plan! Triangles plus strong supports — that bridge will hold a LOT.', source:'general', sourceConcept:'design transfer', sourceProvenance:'curated-brief'}
+    {kind:'mc', q:'Your straw bridge collapsed in the middle. What is the smartest fix?', options:['Add triangle braces underneath','Add more tape in the same flat shape','Paint it red'], answer:0, why:'Triangles lock their shape — engineers fix weak bridges exactly this way!', source:'general', sourceConcept:'truss inference', sourceProvenance:'verified-transcript', sourceExcerpt:'Applies the video’s truss lesson to a new collapse (inference, tap-only).'}
   ],
-  creative:{title:'Design a bridge', prompt:'Draw or describe a bridge for toy cars over a river. What shape? What materials? Why will it hold?', tabs:['draw','text','build'],
+  creative:{title:'Design a bridge', prompt:'Draw or describe a bridge for toy cars over a river. What shape? What materials? Why will it hold?', tabs:['draw','build'],
     scout:'Triangles in your design — excellent! Real bridge engineers do exactly that. You think like a builder.'},
   rabbitHoles:[
     {to:'forces', why:'The invisible push-behind every bridge', bridge:'Bridges don’t just sit there — they wrestle pushes and pulls all day. Meet the invisible forces doing the wrestling.'},
@@ -121,7 +121,7 @@ const MISSIONS = [
     {kind:'mc', q:'How wide was the asteroid itself?', options:['12 meters','12 kilometers','12,000 kilometers','As wide as the Moon'], answer:1, why:'12 km — so big it would take hours just to walk across!', source:'video', sourceConcept:'asteroid size', sourceProvenance:'verified-transcript', sourceExcerpt:'Verbatim: “This asteroid was enormous — it was 12 kilometers wide.”'},
     {kind:'mc', q:'What does the video say ended the dinosaurs?', options:['Definitely volcanoes only','Scientists aren’t sure — asteroid, volcanoes, or both','They all moved away','A giant cold'], answer:1, why:'The video keeps it a mystery: soot blocked the sun, but volcanoes may share the blame — maybe both!', source:'video', sourceConcept:'mystery cause', sourceProvenance:'verified-transcript', sourceExcerpt:'Verbatim: “It could have been the asteroid, or it could have been the volcanoes, or both!”'}
   ],
-  creative:{title:'Draw a dinosaur habitat', prompt:'Draw or describe the world the day BEFORE the asteroid hit. What plants, dinosaurs, and weather do you see?', tabs:['draw','text','voice'],
+  creative:{title:'Draw a dinosaur habitat', prompt:'Draw or describe the world the day BEFORE the asteroid hit. What plants, dinosaurs, and weather do you see?', tabs:['draw','voice'],
     scout:'What an imagination! Lush plants, giant herds... and no idea what tomorrow brings. You painted the lost world beautifully.'},
   rabbitHoles:[
     {to:'fossils', why:'The bones left behind…', bridge:'The dinosaurs are gone — but they left clues in stone. One girl found sea monsters in an English cliff.'},
@@ -141,9 +141,9 @@ const MISSIONS = [
   questions:[
     {kind:'mc', q:'What THREE things do engineers use to build super tall towers?', options:['Smart designs, strong materials, cool machines','Hope, luck, and paint','Taller ladders and glue'], answer:0, why:'Smart designs + strong materials + cool machines — the video’s recipe!', source:'video', sourceConcept:'engineering recipe', sourceProvenance:'retrieved-description', sourceExcerpt:'Publisher description: “Learn how engineers use smart designs, strong materials, and cool machines to build super tall towers.”'},
     {kind:'mc', q:'What is the job of a skyscraper’s foundation?', options:['To look pretty','To grip the ground so the tower never tips','To hold the elevators only'], answer:1, why:'Foundations grip deep underground — that is what keeps towers standing!', source:'video', sourceConcept:'foundations', sourceProvenance:'retrieved-description', sourceExcerpt:'Publisher description: “How foundations keep buildings from falling.”'},
-    {kind:'short', q:'Why does a tower need a DEEP foundation?', keywords:['weight','support','ground','stable','anchor','wind'], why:'Exactly! All that weight (plus wind!) must be anchored deep into solid ground.', source:'general', sourceConcept:'foundation reasoning', sourceProvenance:'retrieved-description', sourceExcerpt:'Reasoning from the video’s foundation segment (evaluative, no new facts).'}
+    {kind:'build', q:'Why does a tower need a DEEP foundation? Build the explanation:', tiles:['Heavy towers need','deep foundations','to grip the ground','to tickle clouds'], answer:['Heavy towers need','deep foundations','to grip the ground'], why:'Exactly! All that weight (plus wind!) must be anchored deep into solid ground.', source:'general', sourceConcept:'foundation reasoning', sourceProvenance:'retrieved-description', sourceExcerpt:'Reasoning from the video’s foundation segment (no typing).'}
   ],
-  creative:{title:'Invent a tower', prompt:'Design the tallest, coolest tower ever. How tall? What shape? How does it stand up in wind?', tabs:['draw','text','build'],
+  creative:{title:'Invent a tower', prompt:'Design the tallest, coolest tower ever. How tall? What shape? How does it stand up in wind?', tabs:['draw','build'],
     scout:'A tower with cross-braces AND a deep foundation? You just designed a real skyscraper. Architects would hire you!'},
   rabbitHoles:[
     {to:'bridges', why:'Same tricks, sideways', bridge:'Towers are bridges standing up. Lay one on its side and span a river — same forces, new puzzle.'},
@@ -175,7 +175,7 @@ const MISSIONS = [
     {kind:'tf', q:'True or false: Pompeii was buried by slow lava flows.', options:['True','False'], answer:1, why:'False! Smoke, ash and rock rained down — fast and deadly.', source:'video', sourceConcept:'burial by ash', sourceProvenance:'retrieved-description', sourceExcerpt:'TED-Ed lesson: “They watch Vesuvius spew smoke, ash, and rock.”'},
     {kind:'mc', q:'In the story, what interrupts the wedding talk in the market?', options:['A parade','A deafening boom from the mountain','A rainstorm','A lost dog'], answer:1, why:'A deafening boom — Vesuvius waking up!', source:'video', sourceConcept:'eruption moment', sourceProvenance:'retrieved-description', sourceExcerpt:'TED-Ed lesson: “a deafening boom interrupts them.”'}
   ],
-  creative:{title:'A message from Pompeii', prompt:'You escape with one clay tablet. Write (or record) a 3-sentence message warning others or describing what you saw.', tabs:['text','voice','draw'],
+  creative:{title:'A message from Pompeii', prompt:'You escape with one clay tablet. Write (or record) a 3-sentence message warning others or describing what you saw.', tabs:['voice','draw'],
     scout:'Chills! “The mountain breathed smoke” — you write like a true Roman witness. Historians would treasure this tablet.'},
   rabbitHoles:[
     {to:'volcano', why:'The mountain itself', bridge:'You survived the city. Now meet the mountain: what WAS that exploding peak, exactly?'},
@@ -195,9 +195,9 @@ const MISSIONS = [
   questions:[
     {kind:'mc', q:'How does a volcanic island start?', options:['Sand blows together','Underwater eruptions pile up lava','Giants stack rocks','It floats up'], answer:1, why:'Underwater lava piles higher and higher until it breaks the surface!', source:'video', sourceConcept:'island formation', sourceProvenance:'retrieved-description', sourceExcerpt:'Publisher description: “we will learn about the volcanic islands… how volcanic islands form and grow.”'},
     {kind:'tf', q:'True or false: Lava piles up, cools, and piles more until a new island pokes above the waves.', options:['True','False'], answer:0, why:'True! Pile, cool, repeat — until the island pops out of the ocean!', source:'reading', sourceConcept:'pile-up mechanism', sourceProvenance:'retrieved-description', sourceExcerpt:'Scout’s note (exact reading Jackson saw): “Lava piles up, cools, piles more — until it pokes above the waves: a new island!”'},
-    {kind:'short', q:'Name one way islands form (volcano, coral, or your own idea).', keywords:['volcano','lava','coral','erupt','atoll','magma'], why:'Yes! Volcanoes and coral are island-builders. Fire making beaches — amazing.', source:'general', sourceConcept:'formation paths', sourceProvenance:'retrieved-description', sourceExcerpt:'Open idea-share; evaluated on effort and vocabulary, not a single fact.'}
+    {kind:'mc', q:'Which of these shows an island being born?', options:['An underwater volcano piling up lava','A sandcastle at the beach','A floating log'], answer:0, why:'Underwater lava piles higher and higher until it breaks the surface!', source:'video', sourceConcept:'island formation', sourceProvenance:'retrieved-description', sourceExcerpt:'Publisher description: “we will learn about the volcanic islands… how volcanic islands form and grow.”'}
   ],
-  creative:{title:'Invent an island', prompt:'Invent your own island! What is it called? Volcano island or coral island? What animals live there? Draw or describe it.', tabs:['draw','text','build'],
+  creative:{title:'Invent an island', prompt:'Invent your own island! What is it called? Volcano island or coral island? What animals live there? Draw or describe it.', tabs:['draw','build'],
     scout:'A volcano island with coral beaches AND parrots?! I want to visit! You combined both island recipes perfectly.'},
   rabbitHoles:[
     {to:'volcano', why:'The fire below', bridge:'Islands rise from fire — but what IS that fire, and where does it come from?'},
@@ -210,16 +210,17 @@ const MISSIONS = [
   skills:['Science','Math','Critical Thinking','Creativity'], tags:['Fighter Jets','Engineering','Cars'],
   source:{type:'video', videoId:'cf-JUz3gqdk', provenance:'retrieved-description', transcriptNote:'Publisher description verified 2026-09-04: Squeaks and Jessi make a travel plan + packing list to overcome Mars challenges (Boston Museum of Science). Full transcript not retrievable; specific numbers (Olympus height, sol length) removed from questions as unverified.'},
   media:{type:'youtube', youtubeId:'cf-JUz3gqdk', channel:'SciShow Kids'},
-  predict:{type:'text', q:'Mars air is too thin to breathe and nights are freezing. What THREE things would YOUR Mars base need first?'},
+  predict:{type:'choice', q:'Mars air is too thin to breathe. What will be the HARDEST part of living there?',
+    options:['😮‍💨 No air to breathe','🧸 Too many toys','🌇 Boring sunsets']},
   video:{title:'How Will Humans Live on Mars? — SciShow Kids', duration:'5:13', chapters:['Very different planet','Packing list','Dome cities'],
     script:'Mars is very different from Earth, so Squeaks and Jessi make a travel plan and a packing list! Air you can breathe, water to drink, food to eat, shelter from the cold — what would YOU pack first?'},
   questions:[
     {kind:'mc', q:'Why can’t humans just breathe on Mars?', options:['Too much oxygen','Air is way too thin','It smells bad','Too windy'], answer:1, why:'Mars air is far too thin — and not the air we breathe. Suits and domes needed!', source:'video', sourceConcept:'thin atmosphere', sourceProvenance:'retrieved-description', sourceExcerpt:'Publisher description: Mars “is very different from Earth”; the packing-list premise is breathable air.'},
     {kind:'mc', q:'Squeaks and Jessi pack for Mars. What MUST be on the list?', options:['Air, water, food, shelter','Only toys and snacks','Just a camera','Nothing — Mars is like home'], answer:0, why:'Air, water, food, shelter — the survival packing list!', source:'video', sourceConcept:'packing list', sourceProvenance:'retrieved-description', sourceExcerpt:'Publisher description: “they make a travel plan and packing list that will help them overcome the challenges of life on Mars!”'},
     {kind:'tf', q:'True or false: Mars is so much like Earth that settlers need no special plan.', options:['True','False'], answer:1, why:'False! Mars is very different — that is the whole reason for the travel plan.', source:'video', sourceConcept:'Mars vs Earth', sourceProvenance:'retrieved-description', sourceExcerpt:'Publisher description: “our neighboring planet is very different from Earth.”'},
-    {kind:'short', q:'Name ONE thing a Mars base needs and WHY.', keywords:['air','oxygen','water','food','heat','dome','suit','shield','radiation'], why:'Essential pick! Every Mars base starts with exactly that problem.', source:'general', sourceConcept:'survival needs', sourceProvenance:'retrieved-description', sourceExcerpt:'Open packing-list reasoning; evaluated on justification, not a single fact.'}
+    {kind:'build', q:'Every Mars base starts with needs. Build the packing sentence:', tiles:['Settlers need','air and water','food and shelter','video games only'], answer:['Settlers need','air and water','food and shelter'], why:'Essential picks! Every Mars base starts with exactly those problems.', source:'general', sourceConcept:'survival needs', sourceProvenance:'retrieved-description', sourceExcerpt:'Packing-list reasoning from the video premise (no typing).'}
   ],
-  creative:{title:'Design a Mars base', prompt:'Design your Mars base! Where does air, water, and food come from? What does it look like? Draw or describe it.', tabs:['draw','text','build'],
+  creative:{title:'Design a Mars base', prompt:'Design your Mars base! Where does air, water, and food come from? What does it look like? Draw or describe it.', tabs:['draw','build'],
     scout:'Underground water tanks AND a veggie dome? NASA engineers think exactly like you. Your Mars crew would survive!'},
   rabbitHoles:[
     {to:'jets', why:'Flying with thin air', bridge:'Mars air is too thin for jet wings. So… what COULD fly there? Start with how wings work here.'},
@@ -238,10 +239,10 @@ const MISSIONS = [
     script:'Sharks have special spots on their faces that sense electricity! Hidden fish give off tiny electric signals — the shark feels them and snacks. An amazing animal super-sense!'},
   questions:[
     {kind:'mc', q:'Where are the shark’s electricity-sensing spots?', options:['On its tail','Special spots on its face','Inside its stomach','On its teeth'], answer:1, why:'Special spots on the face — a built-in fish-finder!', source:'video', sourceConcept:'face spots', sourceProvenance:'retrieved-description', sourceExcerpt:'Publisher description: “special spots on a shark’s face that help them find food using electricity!”'},
-    {kind:'short', q:'Why would sensing electricity help a shark catch dinner?', keywords:['hidden','hide','find','dark','sand','sense','feel','electric'], why:'Exactly — hidden fish can’t hide their electricity!', source:'video', sourceConcept:'hunting use', sourceProvenance:'retrieved-description', sourceExcerpt:'Publisher description: spots “help them find food using electricity.”'},
+    {kind:'build', q:'Build the hunting sentence — why does electric sense help?', tiles:['Hidden fish glow electric','Sharks feel the signals','Dinner is found','Sharks read minds'], answer:['Hidden fish glow electric','Sharks feel the signals','Dinner is found'], why:'Exactly — hidden fish can’t hide their electricity!', source:'video', sourceConcept:'hunting use', sourceProvenance:'retrieved-description', sourceExcerpt:'Publisher description: spots “help them find food using electricity.”'},
     {kind:'img', q:'Which super-sense helps sharks find hidden fish?', options:[{e:'👁️',t:'Super eyesight'},{e:'⚡',t:'Electric-field sensing'},{e:'👃',t:'Smelling colors'}], answer:1, why:'They feel the tiny electricity that living muscles make — like a sixth sense!', source:'video', sourceConcept:'electroreception', sourceProvenance:'retrieved-description', sourceExcerpt:'Publisher description: sharks “find food using electricity.”'}
   ],
-  creative:{title:'Best-adapted animal challenge', prompt:'A new animal must survive in the deep dark ocean. Which THREE superpowers (from sharks or your imagination) would you give it, and why?', tabs:['text','draw','voice'],
+  creative:{title:'Best-adapted animal challenge', prompt:'A new animal must survive in the deep dark ocean. Which THREE superpowers (from sharks or your imagination) would you give it, and why?', tabs:['draw','voice'],
     scout:'Electric sensing PLUS conveyor teeth PLUS glow-in-the-dark? That creature rules the deep sea. Superb adapting!'},
   rabbitHoles:[
     {to:'dino', why:'Sharks met dinosaurs!', bridge:'Sharks swam with sea monsters for 200 million years. Then one bad day ended the giants — but not the sharks.'},
@@ -261,9 +262,9 @@ const MISSIONS = [
   questions:[
     {kind:'mc', q:'What pushes a gas car’s pistons?', options:['Tiny controlled explosions','Rubber bands','Wind','Hamsters'], answer:0, why:'Mini-explosions of fuel! That is the whole idea of the song.', source:'video', sourceConcept:'combustion', sourceProvenance:'retrieved-description', sourceExcerpt:'Video premise (title): “How Does YOUR Car’s Engine Work?!” — an engine song about explosions moving pistons.'},
     {kind:'sort', q:'Put the engine’s four steps in order:', options:['Suck fuel and air in','Squeeze the mix tight','SPARK — bang!','Blow the leftovers out'], answer:[0,1,2,3], why:'Suck, squeeze, bang, blow — the four-stroke party!', source:'reading', sourceConcept:'four-stroke order', sourceProvenance:'retrieved-description', sourceExcerpt:'Scout’s note (exact reading Jackson saw): “Suck, squeeze, bang, blow — 100 times a second!”'},
-    {kind:'short', q:'Gas or electric: which would YOU pick for a race car, and why?', keywords:['gas','electric','fast','power','battery','explosion','motor','torque'], why:'Great reasoning! Real engineers argue about exactly that trade-off.', source:'general', sourceConcept:'engineering tradeoffs', sourceProvenance:'retrieved-description', sourceExcerpt:'Open opinion; evaluated on reasoning, not a single fact.'}
+    {kind:'mc', q:'City race, chargers on every lap. Which race car does the engineer pick?', options:['Electric — recharge between laps','Gas — louder vroom','Pedal car — leg power'], answer:0, why:'Right call for THIS race! Engineers match the machine to the track — real tradeoff thinking.', source:'general', sourceConcept:'engineering tradeoffs', sourceProvenance:'retrieved-description', sourceExcerpt:'Tradeoff reasoning scenario (tap-only, no typing).'}
   ],
-  creative:{title:'Invent a machine', prompt:'Invent a vehicle of the future! What powers it — explosions, batteries, rockets, something new? Draw or describe it.', tabs:['draw','text','build'],
+  creative:{title:'Invent a machine', prompt:'Invent a vehicle of the future! What powers it — explosions, batteries, rockets, something new? Draw or describe it.', tabs:['draw','build'],
     scout:'A solar-rocket skate-car?! Wild AND thought-through — you even solved refueling. Future inventor confirmed.'},
   rabbitHoles:[
     {to:'jets', why:'Engines that fly', bridge:'Car engines push wheels. Bolt wings on that idea and the road disappears beneath you.'},
@@ -276,16 +277,17 @@ const MISSIONS = [
   skills:['History','Science','Math','Critical Thinking'], tags:['History','Engineering','Minecraft'],
   source:{type:'video', videoId:'tj-4WeOXKco', provenance:'retrieved-description', transcriptNote:'Full publisher description verified 2026-09-04: gravity downhill flow, channels/tunnels/arches, drinking/bathing/fountains/toilets, still standing. All questions cite it.'},
   media:{type:'youtube', youtubeId:'tj-4WeOXKco', channel:'Bedtime History'},
-  predict:{type:'text', q:'Romans had NO pumps and NO engines. If YOUR town needed river water from 50 km away, how would you move it?'},
+  predict:{type:'choice', q:'Romans had NO pumps and NO engines. How would YOU move river water 50 km to town?',
+    options:['📉 A gentle downhill channel','🪣 Carry buckets forever','📢 Shout at the water']},
   video:{title:'Roman Aqueducts — Bedtime History', duration:'4:44', chapters:['No pumps?!','Gravity is the engine','The tiny slope trick'],
     script:'Romans had no pumps — so they used GRAVITY. Aqueducts slope downhill just a tiny bit — 1 meter every 2 km! Water flows for 50 km, over arched bridges across valleys, into city fountains. Roman engineers surveyed slopes with amazing precision.'},
   questions:[
     {kind:'mc', q:'What powered Roman aqueducts?', options:['Steam pumps','Gravity + a gentle downhill slope','Windmills','Slaves carrying buckets'], answer:1, why:'Gravity! A barely-visible slope carried water for miles.', source:'video', sourceConcept:'gravity flow', sourceProvenance:'retrieved-description', sourceExcerpt:'Publisher description: “aqueducts used gravity to move water downhill through channels, tunnels, and tall stone arches.”'},
     {kind:'tf', q:'True or false: Aqueduct channels sloped steeply downhill.', options:['True','False'], answer:1, why:'False! A gentle downhill slope — steep water would rush and break the channel.', source:'video', sourceConcept:'gentle gradient', sourceProvenance:'retrieved-description', sourceExcerpt:'Publisher description: “used gravity to move water downhill”; steep slopes would destroy the flow.'},
     {kind:'img', q:'Which Roman trick crossed a valley?', options:[{e:'🚇',t:'Tunnel under everything'},{e:'🌉',t:'Arched bridge carrying water'},{e:'🪣',t:'Bucket chain'}], answer:1, why:'Tall stone arches carried the water channel across valleys!', source:'video', sourceConcept:'arcade bridges', sourceProvenance:'retrieved-description', sourceExcerpt:'Publisher description: “tall stone arches” carried water to cities.'},
-    {kind:'short', q:'The video says aqueduct water was used for drinking, bathing, fountains — even toilets! Which use surprises you most, and why?', keywords:['drink','bath','fountain','toilet','surpris','because','water'], why:'Great pick! Romans used running water for almost everything we do.', source:'video', sourceConcept:'water uses', sourceProvenance:'retrieved-description', sourceExcerpt:'Publisher description: “drinking, bathing, fountains, and even flushing toilets.”'}
+    {kind:'mc', q:'Which fact BEST shows Romans depended on aqueducts?', options:['Water for drinking, baths, fountains, even toilets','Aqueducts were painted red','Romans liked hills'], answer:0, why:'Drinking, bathing, fountains, toilets — running water for almost everything!', source:'video', sourceConcept:'water uses', sourceProvenance:'retrieved-description', sourceExcerpt:'Publisher description: “drinking, bathing, fountains, and even flushing toilets.”'}
   ],
-  creative:{title:'Move water like a Roman', prompt:'Your LEGO town is on a hill and the “river” (a bowl) is across the room. How would you move water with NO pump? Draw or describe your aqueduct!', tabs:['draw','text','build'],
+  creative:{title:'Move water like a Roman', prompt:'Your LEGO town is on a hill and the “river” (a bowl) is across the room. How would you move water with NO pump? Draw or describe your aqueduct!', tabs:['draw','build'],
     scout:'A straw-aqueduct on books with a gentle slope — you literally rebuilt Roman engineering on your table. Brilliant!'},
   rabbitHoles:[
     {to:'pompeii', why:'Roman daily life', bridge:'Aqueducts fed the fountains and baths of Roman cities — including one city frozen in time by a volcano.'},
@@ -305,9 +307,9 @@ const MISSIONS = [
   questions:[
     {kind:'mc', q:'Who helped us learn about dinosaurs?', options:['Mary Anning, a fossil hunter','A movie director','A pirate','Nobody — we guessed'], answer:0, why:'Mary Anning! Without her cliff discoveries we would know far less about dinosaurs.', source:'video', sourceConcept:'Mary Anning', sourceProvenance:'retrieved-description', sourceExcerpt:'Publisher description: “we wouldn’t know nearly as much as we do if it weren’t for a person named Mary Anning.”'},
     {kind:'mc', q:'What is a fossil?', options:['A painted rock','An animal or plant turned to stone','A type of volcano','A treasure chest'], answer:1, why:'Minerals replace bone bit by bit until the shape is stone — nature’s statue!', source:'reading', sourceConcept:'fossil definition', sourceProvenance:'retrieved-description', sourceExcerpt:'Scout’s note (exact reading Jackson saw): “minerals slowly replace bone with stone. A fossil is nature’s statue.”'},
-    {kind:'short', q:'Why do fossils form in mud and rock — but not in a jungle?', keywords:['bury','mud','rot','protect','minerals','stone','quick'], why:'Exactly! Quick burial protects remains from rot while minerals do their slow magic.', source:'general', sourceConcept:'fossilization reasoning', sourceProvenance:'retrieved-description', sourceExcerpt:'Reasoning from Scout’s note about fast burial (evaluative, no new facts).'}
+    {kind:'build', q:'Build how a fossil forms:', tiles:['Animals buried fast','Minerals replaced bone','Fossils formed','Jungles mailed them'], answer:['Animals buried fast','Minerals replaced bone','Fossils formed'], why:'Exactly! Quick burial protects remains from rot while minerals do their slow magic.', source:'general', sourceConcept:'fossilization reasoning', sourceProvenance:'retrieved-description', sourceExcerpt:'Mechanism chain from Scout’s note (no typing).'}
   ],
-  creative:{title:'Leave a fossil', prompt:'If YOU became a fossil, what would future scientists learn? Draw the fossil you would leave behind!', tabs:['draw','text','voice'],
+  creative:{title:'Leave a fossil', prompt:'If YOU became a fossil, what would future scientists learn? Draw the fossil you would leave behind!', tabs:['draw','voice'],
     scout:'A fossilized skateboard next to sneaker-prints?! Future scientists will be SO confused — and delighted.'},
   rabbitHoles:[
     {to:'dino', why:'The giants they came from…', bridge:'Fossils are how we KNOW dinosaurs. Ready to meet the giants themselves — and solve their disappearance?'},
@@ -327,9 +329,9 @@ const MISSIONS = [
   questions:[
     {kind:'sort', q:'Order the layers from outside to inside:', options:['Crust','Mantle','Core'], answer:[0,1,2], why:'Crust we stand on, thick rocky mantle, metal core heart!', source:'video', sourceConcept:'three layers', sourceProvenance:'retrieved-description', sourceExcerpt:'Publisher description: “our planet Earth is made up of three distinct layers… each of these layers have their own distinct properties.”'},
     {kind:'mc', q:'Which layer do we live on?', options:['Mantle','Core','Crust','None — we float'], answer:2, why:'The crust — Earth’s thin outer skin!', source:'video', sourceConcept:'crust', sourceProvenance:'retrieved-description', sourceExcerpt:'Publisher description: three distinct layers; the outermost is the crust we live on.'},
-    {kind:'short', q:'Nobody can dig to the center. How could Dr. Binocs still know what is inside?', keywords:['waves','earthquake','echo','sound','shake','science','guess','study'], why:'Great thinking! Scientists read earthquake echoes like an X-ray of the planet.', source:'general', sourceConcept:'how we know', sourceProvenance:'retrieved-description', sourceExcerpt:'Open reasoning; the video’s whole premise is knowing the unseen inside.'}
+    {kind:'build', q:'Nobody can dig to the center — so how do we know what is inside? Build it:', tiles:['Earthquakes shake','Echoes travel inside','Scientists map the layers','Moles report back'], answer:['Earthquakes shake','Echoes travel inside','Scientists map the layers'], why:'Great thinking! Scientists read earthquake echoes like an X-ray of the planet.', source:'general', sourceConcept:'how we know', sourceProvenance:'retrieved-description', sourceExcerpt:'Evidence-chain reasoning (no typing).'}
   ],
-  creative:{title:'Build planet Earth', prompt:'Make an Earth model: crust skin, mantle middle, metal heart. Draw it, build it from clay or LEGO, or describe your layers!', tabs:['draw','build','text'],
+  creative:{title:'Build planet Earth', prompt:'Make an Earth model: crust skin, mantle middle, metal heart. Draw it, build it from clay or LEGO, or describe your layers!', tabs:['draw','build'],
     scout:'A peach-planet with a metal pit?! That is EXACTLY how scientists picture it. Delicious AND correct.'},
   rabbitHoles:[
     {to:'volcano', why:'Lava comes from down there…', bridge:'That melted rock has to come from somewhere. Follow the lava elevator DOWN.'},
@@ -351,7 +353,7 @@ const MISSIONS = [
     {kind:'mc', q:'Bees have TINY wings. How do they stay up?', options:['They flap super fast','They never actually fly','They ride the wind only','They hold their breath'], answer:0, why:'Tiny wings flap incredibly fast — the video has a whole chapter on bee flight!', source:'video', sourceConcept:'bee flight', sourceProvenance:'retrieved-description', sourceExcerpt:'Video chapter list includes “How Bees Fly.”'},
     {kind:'img', q:'Penguins “fly” somewhere unusual. Where?', options:[{e:'🌊',t:'Underwater'},{e:'☁️',t:'Above clouds'},{e:'🌙',t:'To the Moon'}], answer:0, why:'Penguins fly with their flippers — underwater! Wings work in water too.', source:'video', sourceConcept:'penguin flight', sourceProvenance:'retrieved-description', sourceExcerpt:'Video chapter list includes “How Penguins Fly.”'}
   ],
-  creative:{title:'Design a bird-plane', prompt:'Invent a flying machine that steals THREE ideas from birds. What bird parts does it use? Draw or describe it!', tabs:['draw','text','build'],
+  creative:{title:'Design a bird-plane', prompt:'Invent a flying machine that steals THREE ideas from birds. What bird parts does it use? Draw or describe it!', tabs:['draw','build'],
     scout:'Owl-silent wings AND eagle gliders AND hummingbird hover?! Nature’s R&D department approves!'},
   rabbitHoles:[
     {to:'jets', why:'Jets copied birds', bridge:'Now you know the original. See how humans bolted engines onto the same trick.'},
@@ -373,7 +375,7 @@ const MISSIONS = [
     {kind:'tf', q:'True or false: Forces can ONLY push, never pull.', options:['True','False'], answer:1, why:'False! Pushes AND pulls — the video is literally called Push AND Pull!', source:'video', sourceConcept:'push vs pull', sourceProvenance:'retrieved-description', sourceExcerpt:'Publisher description: “two basic types of forces” — push and pull.'},
     {kind:'img', q:'Which picture shows a PULL?', options:[{e:'⚽',t:'Kicking a ball'},{e:'🪢',t:'Tug-of-war rope'},{e:'🎳',t:'Bowling throw'}], answer:1, why:'Tug-of-war pulls toward you. Kicks and throws push away!', source:'video', sourceConcept:'identify pull', sourceProvenance:'retrieved-description', sourceExcerpt:'Publisher description: forces “start motion, stop motion, or change the direction” — pulls draw things closer.'}
   ],
-  creative:{title:'Chain-reaction machine', prompt:'Design a 3-step push-and-pull chain reaction (like dominoes meets mousetrap). What pushes what? Draw or describe it!', tabs:['draw','text','build'],
+  creative:{title:'Chain-reaction machine', prompt:'Design a 3-step push-and-pull chain reaction (like dominoes meets mousetrap). What pushes what? Draw or describe it!', tabs:['draw','build'],
     scout:'A rolling ball pulls a string that pushes a lever?! A beautiful force relay — engineers chain forces exactly like this.'},
   rabbitHoles:[
     {to:'bridges', why:'Forces holding up cars', bridge:'Bridges are force-juggling champions: pushes, pulls, and 1,000 cars at once.'},
@@ -387,7 +389,7 @@ const MISSIONS = [
   source:{type:'game', videoId:null, provenance:'demo', transcriptNote:'Game mission: questions are generated live by the math engine, no static Q&A to audit.'},
   media:{type:'mock'},
   video:null, questions:[],
-  creative:{title:'Victory blueprint', prompt:'You won! Describe (or draw) the ultimate weapon or trap you would build with your loot.', tabs:['text','draw'],
+  creative:{title:'Victory blueprint', prompt:'You won! Describe (or draw) the ultimate weapon or trap you would build with your loot.', tabs:['draw'],
     scout:'A diamond sword with a lava trap moat? The mobs stand no chance. Master builder AND math warrior!'},
   rabbitHoles:[
     {to:'bridges', why:'Build with your loot', bridge:'Victory loot, meet engineering: the strongest structures ever built started as blocks.'},
@@ -400,14 +402,15 @@ const MISSIONS = [
   skills:['Science','Geography'], tags:['Geology','Dinosaurs'],
   source:{type:'mock', videoId:null, provenance:'mock-script', transcriptNote:'No video attached (mock fallback mission). Questions are general-knowledge, internally consistent, explicitly labeled.'},
   media:{type:'mock'},
-  predict:{type:'text', q:'What if a volcano was SO big you could stand inside it and not even know? What would that look like?'},
+  predict:{type:'choice', q:'What if a volcano was SO big you could stand inside it and not even know? What would you see?',
+    options:['🕳️ A giant dip with a lake','⛰️ A tall pointy mountain','🙈 Nothing at all']},
   video:{title:'When Earth Sneezes', duration:'3:20', chapters:['No mountain?','Yellowstone sleeps','Ash worldwide'],
     script:'Supervolcanoes are so huge you can stand inside one and not know! Yellowstone is a 70-km-wide hidden crater. Its last big eruption spread ash across half a continent. Scientists watch it closely — it is sleeping, not extinct.'},
   questions:[
     {kind:'mc', q:'Why can’t you see a supervolcano’s mountain?', options:['It is invisible','It blew itself apart, leaving a giant dip (caldera)','It hides underwater always','It is on Mars'], answer:1, why:'It exploded so hard the mountain collapsed into a giant bowl called a caldera!', source:'general', sourceConcept:'caldera', sourceProvenance:'mock-script', sourceExcerpt:'Mock-lesson general knowledge (no video attached).'},
     {kind:'tf', q:'True or false: Yellowstone is being watched by scientists.', options:['True','False'], answer:0, why:'True! Sensors track every wiggle — it is asleep, and scientists keep watch.', source:'general', sourceConcept:'monitoring', sourceProvenance:'mock-script', sourceExcerpt:'Mock-lesson general knowledge (no video attached).'}
   ],
-  creative:{title:'Caldera diorama plan', prompt:'Describe or draw a supervolcano caldera: the dip, the lake inside, and where the ash went!', tabs:['draw','text'],
+  creative:{title:'Caldera diorama plan', prompt:'Describe or draw a supervolcano caldera: the dip, the lake inside, and where the ash went!', tabs:['draw'],
     scout:'A lake inside the crater with ash arrows across the map — that is exactly how scientists draw it. Stunning!'},
   rabbitHoles:[
     {to:'volcano', why:'Back to basics', bridge:'Supersized is fun — but the same small rules drive every eruption. Revisit the basics.'},

@@ -26,6 +26,7 @@ window.__mlwDiag = [];
 window.addEventListener('beforeinstallprompt', function (e) {
   e.preventDefault();
   window.__mlwBIP = e;
+  window.__mlwBIPFired = true;
   window.__mlwDiag.push({ t:'bip_received', at:Date.now() });
   if (window.__mlwBIPShow) window.__mlwBIPShow();
 });

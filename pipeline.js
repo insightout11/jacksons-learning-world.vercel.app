@@ -142,7 +142,7 @@ const MissionCrafter = {
     const questions = [
       {kind:'mc', q:'What was the most surprising idea in the video?', options:['Something about how things work','Nothing at all','I skipped it'], answer:0,
         why:'Curious watchers always find one surprising idea!', sourceConcept:'engagement', sourceExcerpt:String(concept).slice(0,140), sourceProvenance:prov},
-      {kind:'short', q:'What do you want to know NEXT after watching?', options:[], answer:0, keywords:['why','how','what','because'],
+      {kind:'mc', q:'What do you want to find out NEXT?', options:['Why does it happen?','What color is it?','Nothing — I’m done'], answer:0,
         why:'That “what next?” feeling is exactly what rabbit holes are made of!', sourceConcept:'curiosity', sourceExcerpt:String(concept).slice(0,140), sourceProvenance:prov},
       {kind:'tf', q:'True or false: Asking questions while you watch helps you remember more.', options:['True','False'], answer:0,
         why:'True! Scientists call it active watching.', sourceConcept:'metacognition', sourceProvenance:'demo'}
@@ -155,9 +155,9 @@ const MissionCrafter = {
       media:{type:'youtube', youtubeId:meta.videoId, channel:meta.channel},
       video:{title:meta.title, duration:'~4 min', chapters:['Watch','Wonder','Connect'], script:'Watch with Scout’s questions in mind: what surprised you?'},
       provenance:prov,
-      predict:{q:'Before you watch — what do you already think this is about?', type:'text'},
+      predict:{type:'choice', q:'Before you watch — which question do you MOST want answered?', options:['How does it work?','Why does it happen?','What happens next?']},
       questions, questionBank:QUESTION_BANK,
-      creative:{title:'Respond to the video', prompt:'Draw, build, or explain your response to “'+title+'”. Teach it back!', tabs:['draw','text','voice'], scout:'Teaching it back — the ultimate explorer move!'},
+      creative:{title:'Respond to the video', prompt:'Draw, build, or explain your response to “'+title+'”. Teach it back!', tabs:['draw','voice','build'], scout:'Teaching it back — the ultimate explorer move!'},
       rabbitHoles:[{to:'volcano',why:'Scout’s wild pick',bridge:'Every explorer needs a volcano story.'},{to:'jets',why:'Speedy minds',bridge:'Fast machines, fast questions.'},{to:'dino',why:'Deep-time wonder',bridge:'Some wonders are millions of years old.'}],
       skills:['Science','Reading','Critical Thinking'], tags:['Mysteries'],
       concepts:(opts.concepts&&opts.concepts.length?opts.concepts:['curiosity'])
@@ -169,7 +169,7 @@ const QUESTION_BANK = [
   {kind:'mc', q:'Which question would a scientist ask next?', options:['Why does that happen?','What color is it?','Who cares?'], answer:0, why:'“Why” questions power science!', sourceConcept:'inquiry', sourceProvenance:'demo'},
   {kind:'mc', q:'What should you do when something surprises you?', options:['Investigate it!','Ignore it','Change the subject'], answer:0, why:'Surprise is your brain saying “save this!”', sourceConcept:'curiosity', sourceProvenance:'demo'},
   {kind:'tf', q:'True or false: It is okay to change your mind when you learn something new.', options:['True','False'], answer:0, why:'True! Changing your mind is how learning works.', sourceConcept:'mindset', sourceProvenance:'demo'},
-  {kind:'short', q:'Use what you saw to solve this: how would you explain it to a 4-year-old?', options:[], answer:0, keywords:['because','like','so'], why:'Simple explanations show deep understanding!', sourceConcept:'transfer', sourceProvenance:'demo'}
+  {kind:'mc', q:'How would you explain it to a 4-year-old?', options:['Use simple words + an example','Use big tricky words','Don’t explain at all'], answer:0, why:'Simple explanations show deep understanding!', sourceConcept:'transfer', sourceProvenance:'demo'}
 ];
 const MissionValidator = {
   check(d){

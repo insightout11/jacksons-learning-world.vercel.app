@@ -190,13 +190,13 @@ function sendMissionText(){
       collectible:{name:'Star sticker', emoji:'⭐'}, worldItem:{name:'Discovery Flag', emoji:'🚩'},
       desc:'A special mission sent with love.', skills:['Creativity','Critical Thinking'], tags:['Mysteries'],
       media:{type:'mock'},
-      predict:{type:'text', q:'Before we begin — what do you already wonder about this?'},
+      predict:{type:'choice', q:'Before we begin — which question do you MOST want answered?', options:['How does it work?','Why does it happen?','What happens next?']},
       video:{title:'Exploring: '+t, duration:'3:30', chapters:['Wonder','Discover','Create'], script:'Every great discovery starts with a question — and today the question is yours! Watch, wonder, try, and create. That is how explorers learn.'},
       questions:[
         {kind:'mc', q:'What is the BEST first step of an explorer?', options:['Ask a great question','Wait to be told','Look away'], answer:0, why:'Questions power everything!'},
-        {kind:'short', q:'What do you already wonder about this topic?', keywords:['why','how','what','because'], why:'Wonderful wondering! Curiosity: activated.'}
+        {kind:'mc', q:'What do you wonder about this topic?', options:['How it works','Why it happens','What happens next'], answer:0, why:'Wonderful wondering! Curiosity: activated.'}
       ],
-      creative:{title:'Show what you found', prompt:'Draw, build, or write what you discovered about this mission!', tabs:['draw','text','build'], scout:'A mission straight from Dad, completed with heart. That is what explorers do!'},
+      creative:{title:'Show what you found', prompt:'Draw, build, or tell what you discovered about this mission!', tabs:['draw','build','voice'], scout:'A mission straight from Dad, completed with heart. That is what explorers do!'},
       rabbitHoles:[{to:'volcano',why:'A Scout favorite'},{to:'jets',why:'Fast and curious'},{to:'dino',why:'Deep-time wonder'}]
     });
   }
@@ -445,6 +445,13 @@ function pSettings(){
       <div class="p-sub" style="margin-top:8px">Reset restores Jackson's seeded profile and clears progress (localStorage).</div>
     </div>
   </div>
+  <div class="p-card" style="margin-top:14px"><div class="p-label">📲 PWA status (temporary diagnostic)</div>
+    <div id="pwa-diag"><div class="p-sub">Gathering device signals…</div></div>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+      <button class="p-btn ghost" onclick="copyPwaDiag()">📋 Copy PWA diagnostics</button>
+      <button class="p-btn ghost" onclick="pwaDiag(true)">🔄 Refresh signals</button>
+    </div>
+  </div>
   <div class="p-card" style="margin-top:14px"><div class="p-label">📖 Mission library preview</div>
     <div class="p-grid c4" style="margin-top:10px">${LIBRARY.map(l=>`<div class="appr"><div style="font-size:30px">${l.emoji}</div><div><b style="font-size:13px">${l.title}</b><div class="p-sub">${l.subject} · ${l.age}</div></div></div>`).join('')}</div>
   </div>`;
@@ -453,4 +460,98 @@ function resetDemo(){
   confirmModal('Reset the demo?', 'All progress, rewards, and parent settings return to the fresh Jackson seed.', 'Keep Everything', 'Reset Demo', ()=>{
     localStorage.removeItem('mlw_v1'); location.reload();
   });
+}
+/* ----- Parent-only PWA diagnostics (no fake install UI) ----- */
+let __pwaDiagCache = null;
+async function pwaDiag(refresh){
+  const el = document.getElementById('pwa-diag');
+  const set = (html)=>{ if(el) el.innerHTML = html; };
+  if(__pwaDiagCache && !refresh){ set(__pwaDiagCache); return; }
+  set('<div class="p-sub">Gathering device signals…</div>');
+  try{
+  const d = {};
+  try{ d.standalone = window.matchMedia('(display-mode: standalone)').matches; }catch(e){ d.standalone = 'unknown'; }
+  d.bipThisSession = !!window.__mlwBIPFired;
+  d.appinstalled = (getEvents().some(function(e){return e.t==='appinstalled';}));
+  d.swSupported = ('serviceWorker' in navigator);
+  d.onLine = (typeof navigator.onLine==='boolean') ? navigator.onLine : 'unknown';
+  d.origin = location.origin; d.url = location.href;
+  d.ua = navigator.userAgent || 'unknown';
+  const m = (d.ua.match(/Chrome\/([\d.]+)/)||[])[1]; d.chrome = m || 'not-detected';
+  try{
+    const link = document.querySelector('link[rel="manifest"]');
+    d.manifestUrl = link ? new URL(link.getAttribute('href'), location.href).toString() : '(none)';
+  }catch(e){ d.manifestUrl = '(error)'; }
+  if(d.manifestUrl && d.manifestUrl.indexOf('http')===0){
+    try{
+      const r = await fetch(d.manifestUrl, {cache:'no-store'});
+      d.manifestFetch = r.status;
+      if(r.ok){ const mj = await r.json();
+        d.mName = mj.name; d.mId = mj.id; d.mStart = mj.start_url; d.mScope = mj.scope; d.mDisplay = mj.display;
+      }
+    }catch(e){ d.manifestFetch = 'fetch-failed'; }
+  } else d.manifestFetch = 'n/a';
+  if(d.swSupported){
+    try{
+      const reg = await navigator.serviceWorker.getRegistration();
+      d.swRegistered = !!reg;
+      d.swScope = reg ? reg.scope : '—';
+      d.swActive = !!(reg && reg.active);
+      d.swScript = (reg && reg.active) ? reg.active.scriptURL : '—';
+      d.swControlling = !!navigator.serviceWorker.controller;
+    }catch(e){ d.swRegistered = 'error'; }
+  } else { d.swRegistered = 'n/a'; }
+  try{
+    if('getInstalledRelatedApps' in navigator){
+      const apps = await navigator.getInstalledRelatedApps();
+      d.relatedApps = apps.length ? apps.map(function(a){return a.id||a.platform;}).join(', ') : 'none reported';
+    } else d.relatedApps = 'API unsupported here';
+  }catch(e){ d.relatedApps = 'error'; }
+  d.installedBelief = (d.standalone===true) ? 'YES (standalone display-mode)' : (d.relatedApps!=='none reported' && d.relatedApps!=='API unsupported here' ? 'maybe ('+d.relatedApps+')' : 'NO signal');
+  const row = function(k,v){ return '<div class="kv"><span>'+k+'</span><b>'+String(v)+'</b></div>'; };
+  __pwaDiagCache =
+    row('Running standalone', d.standalone?'YES':'NO') +
+    row('Install prompt available', d.bipThisSession?'YES — button is in the kid top bar':'NO') +
+    row('beforeinstallprompt this session', d.bipThisSession?'YES':'NO') +
+    row('appinstalled event', d.appinstalled?'YES':'NO') +
+    row('SW supported', d.swSupported?'YES':'NO') +
+    row('SW registered', d.swRegistered===true?'YES':d.swRegistered) +
+    row('SW controlling page', d.swControlling?'YES':'NO') +
+    row('SW scope', d.swScope||'—') +
+    row('SW script', (d.swScript||'—').split('/').slice(-1)[0]||'—') +
+    row('Manifest URL', d.manifestUrl||'—') +
+    row('Manifest fetch', d.manifestFetch) +
+    row('Manifest name', d.mName||'—') +
+    row('Manifest id', d.mId||'—') +
+    row('Manifest start_url', d.mStart||'—') +
+    row('Manifest scope', d.mScope||'—') +
+    row('Display mode', d.mDisplay||'—') +
+    row('Origin', d.origin) +
+    row('Online', d.onLine?'YES':'NO') +
+    row('Chrome version', d.chrome) +
+    row('Related apps', d.relatedApps) +
+    row('Believes installed', d.installedBelief) +
+    row('Standalone matches', (d.standalone===true)?'YES — installed':'NO — browser tab');
+  window.__pwaDiagData = d;
+  set(__pwaDiagCache);
+  }catch(err){ set('<div class="insight" style="background:#fff1f1;border-color:#f3c2c2">⚠️<span>Diagnostics hit a snag ('+esc(String((err&&err.message)||err))+'). Tap Refresh signals to retry.</span></div>'); }
+}
+function copyPwaDiag(){
+  const d = window.__pwaDiagData || {};
+  const lines = ['LEARNING WORLD PWA DIAG', 'url: '+(d.url||location.href), 'origin: '+(d.origin||location.origin),
+    'chrome: '+(d.chrome||'?'), 'standalone: '+d.standalone, 'bipThisSession: '+d.bipThisSession,
+    'appinstalled: '+d.appinstalled, 'swRegistered: '+d.swRegistered, 'swControlling: '+d.swControlling,
+    'swScope: '+(d.swScope||''), 'manifest: '+(d.manifestUrl||'')+' -> '+d.manifestFetch,
+    'manifestId: '+(d.mId||''), 'startUrl: '+(d.mStart||''), 'scope: '+(d.mScope||''),
+    'relatedApps: '+(d.relatedApps||''), 'online: '+d.onLine];
+  const txt = lines.join('\n');
+  const done = function(ok){ toast(ok?'Diagnostics copied 📋':'Copy failed — screenshot instead'); };
+  try{
+    if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(function(){done(true);},function(){done(false);});
+    else {
+      const ta = document.createElement('textarea'); ta.value = txt; document.body.appendChild(ta); ta.select();
+      let ok = false; try{ ok = document.execCommand('copy'); }catch(e){}
+      ta.remove(); done(ok);
+    }
+  }catch(e){ done(false); }
 }

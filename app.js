@@ -71,7 +71,7 @@ function render(){
   if(window.__mlwDiag && window.__mlwDiag.length && S){ const q = window.__mlwDiag.splice(0); q.forEach(function(e){ logEvent(e.t,{}); }); }
   if(S && !window.__mlwStdLogged && standaloneMode()){ window.__mlwStdLogged = true; logEvent('standalone_launch',{}); }
   if(!S.onboarded){ app.innerHTML = onboardHTML(); const b=document.getElementById('ob-build'); if(b) runBuildAnim(); return; }
-  if(S.mode==='parent'){ app.innerHTML = topbarMini() + parentHTML(); return; }
+  if(S.mode==='parent'){ app.innerHTML = topbarMini() + parentHTML(); schedulePwaDiag(); return; }
   let screen = '';
   if(R) screen = playerHTML();
   else if(S.childTab==='world') screen = worldHTML();
@@ -79,6 +79,12 @@ function render(){
   else if(S.childTab==='collection') screen = collectionHTML();
   else screen = profileHTML();
   app.innerHTML = topbar() + screen + (R?'':bottomnav());
+}
+function schedulePwaDiag(){
+  if(!(S&&S.mode==='parent'&&S.parentTab==='settings')) return;
+  __pwaDiagCache=null;
+  setTimeout(function(){ try{ pwaDiag(); }catch(e){} },60);
+  setTimeout(function(){ try{ var el=document.getElementById('pwa-diag'); if(el && /Gathering/.test(el.innerText||'')) pwaDiag(true); }catch(e){} },2500);
 }
 function standaloneMode(){ try{ return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true; }catch(e){ return false; } }
 function showInstallBtn(){ return !!(window.__mlwBIP && !standaloneMode()); }
@@ -356,8 +362,9 @@ function openMission(id, viaRabbit){
   YTPlayer.destroy(); if(vidTimer)clearInterval(vidTimer);
   const depth = viaRabbit ? (viaRabbit.depth+1) : 0;
   R = {id, step:'intro', qi:0, correct:0, storyNode:m.story?m.story.start:null,
-       creativeTab:(m.creative.tabs||['text'])[0], builder:[], videoOn:false, videoT:0,
+       creativeTab:(m.creative.tabs||['draw','voice'])[0], builder:[], videoOn:false, videoT:0,
        answered:false, sortOrder:null, imgSel:[], chestOpen:false, text:'',
+       built:null, buildBank:null,
        prediction:null, revisit:null, depth, viaRabbit:viaRabbit?viaRabbit.from:null,
        bridge:viaRabbit?viaRabbit.bridge:null, ytMode:false};
   if(m.type==='game'){ /* battle starts after intro */ }
@@ -598,12 +605,34 @@ function quizHTML(m){
     <div id="q-feedback"></div><button class="btn green" style="width:100%;margin-top:6px" onclick="sortCheck()">Check Order ✅</button>`;
   } else if(q.kind==='img'){
     qbody = `<div class="img-pick">${q.options.map((o,i)=>`<button id="img-${i}" onclick="imgPick(${i})"><span>${o.e}</span><small>${esc(o.t)}</small></button>`).join('')}</div><div id="q-feedback"></div>`;
+  } else if(q.kind==='build'){
+    if(!R.buildBank) R.buildBank = q.tiles.map((_,i)=>i).sort(()=>Math.random()-.5);
+    if(!R.built) R.built = [];
+    const placed = {};
+    R.built.forEach(function(bi){ placed[bi] = true; });
+    qbody = `<div class="p-label">Tap tiles to build your answer — tap a placed tile to take it back.</div>
+    <div class="builder-stage" id="build-answer" style="min-height:68px">${R.built.length?R.built.map(function(bi){return `<button class="tile placed" onclick="buildUnplace(${bi})">${esc(q.tiles[bi])}</button>`;}).join(''):'<span style="font-size:14px;font-weight:700;color:#6b8f71">Your sentence builds here…</span>'}</div>
+    <div class="builder-palette" style="margin-top:10px">${R.buildBank.filter(function(bi){return !placed[bi];}).map(function(bi){return `<button class="tile" onclick="buildTap(${bi})">${esc(q.tiles[bi])}</button>`;}).join('')}</div>
+    <div id="q-feedback"></div><button class="btn green" style="width:100%;margin-top:8px" onclick="buildCheck()">Check My Sentence ✅</button>`;
   } else if(q.kind==='short'){
     qbody = `<textarea id="short-in" class="short-in" rows="3" placeholder="Type your idea here…"></textarea><div id="q-feedback"></div>
     <button class="btn green" style="width:100%;margin-top:8px" onclick="shortSubmit()">Share Idea 💡</button>`;
   }
   return `<div class="q-card"><div class="p-label">Challenge ${R.qi+1} of ${total} · ${R.correct} ⭐ so far</div><h3>${esc(q.q)}</h3>${qbody}
     <div id="quiz-next"></div></div><div style="height:14px"></div>`;
+}
+function buildTap(bi){ if(R.answered||!R.built) return; if(R.built.indexOf(bi)>=0) return; R.built.push(bi); render(); }
+function buildUnplace(bi){ if(R.answered||!R.built) return; R.built = R.built.filter(function(x){return x!==bi;}); render(); }
+function buildCheck(){
+  if(R.answered) return; R.answered=true;
+  const m = curMission(), q = m.questions[R.qi];
+  const made = R.built.map(function(bi){return q.tiles[bi];});
+  const ok = made.length===(q.answer||[]).length && made.every(function(t,i){return t===q.answer[i];});
+  if(ok){R.correct++;confettiBurst(12);flyText('+10 ⭐');}
+  const fb=document.getElementById('q-feedback');
+  if(fb)fb.innerHTML=ok?`<div class="feedback good">✅ Beautiful sentence! Read it back: <b>${esc(made.join(' '))}</b>. ${esc(q.why)}</div>`:`<div class="feedback bad">💡 Almost! The sentence goes: <b>${esc((q.answer||[]).join(' '))}</b>. ${esc(q.why)}</div>`;
+  logEvent('activity_completed',{mission:m.id, qi:R.qi, kind:'build', ok}); if(!ok) logEvent('retry',{mission:m.id, qi:R.qi, kind:'build'});
+  bumpSkill(m,ok); quizNextBtn(m);
 }
 function quizNextBtn(m){
   const last = R.qi>=m.questions.length-1;
@@ -613,7 +642,7 @@ function quizNextBtn(m){
 function quizNext(){
   const m = curMission();
   if(R.qi>=m.questions.length-1){ R.step='creative'; R.answered=false; }
-  else { R.qi++; R.answered=false; R.sortOrder=null; R.imgSel=[]; }
+  else { R.qi++; R.answered=false; R.sortOrder=null; R.imgSel=[]; R.built=null; R.buildBank=null; }
   render(); window.scrollTo({top:0});
 }
 function answerOpt(i){
